@@ -1,10 +1,10 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-var clickcount = 0;    
+var clickcount = 0;
 var card =      /* an array to hold the ids of the cards */
 [
    "card1",
@@ -198,9 +198,9 @@ levelThree[17] = new Image();
 levelThree[17].src = 'match_images/c9.bmp';
 
 /* a magic function that shuffles the cards written by someone smarter than I*/
-function shuffleArray(array)        
+function shuffleArray(array)
 {
-for (var i = array.length - 1; i > 0; i--) 
+for (var i = array.length - 1; i > 0; i--)
    {
    var j = Math.floor(Math.random() * (i + 1));
    var temp = array[i];
@@ -213,9 +213,9 @@ return array;
 function NewGame(level) /*shuffles the cards, flips all cards to backside*/
 {
    clickcount = 0;
-   
+
    shuffleArray(level);
-   
+
    if (level === levelOne)
    {
         document.getElementById("demo").innerHTML = "Level One";
@@ -228,7 +228,7 @@ function NewGame(level) /*shuffles the cards, flips all cards to backside*/
    {
        document.getElementById("demo").innerHTML = "Level Three";
    }
-   
+
    for (i = 0; i<18; i++)
    {
    document.getElementById(card[i]).src = "match_images/backside.png";
@@ -241,41 +241,41 @@ function twoFlippedChecker() /*checks if two cards are flipped over*/
 {
     var card1 = 0;
     var card2 = 0;
-    
+
     for (i = 0; i<18; i++)
    {
        var currentcard = document.getElementById(card[i]);
-       
-       if (!(currentcard.src.match ("match_images/backside.png")) && 
+
+       if (!(currentcard.src.match ("match_images/backside.png")) &&
            !(currentcard.src.match ("match_images/blank.bmp")) )
        {
            if (card1 === 0)
             {
                card1 = currentcard;
-             
+
             }
             else if (card2 === 0)
-            { 
+            {
                  card2 = currentcard;
             }
-            else 
+            else
             {
                 card1 = 0;
                 card2 = 0;
             }
-            
+
        }
    }
-   
+
    if (!(card1 === 0) && !(card2 === 0))
    {
-       
+
        setTimeout(function(){
            matchChecker(card1, card2);
        }, 700);
-       
-       
-        
+
+
+
    }
 }
 
@@ -284,35 +284,35 @@ function isgameover() /* clecks if the board is all blank */
     for (i = 0; i<18; i++)
     {
         var currentcard = document.getElementById(card[i]);
-       
-       if (!(currentcard.src.match ("match_images/blank.bmp"))) 
+
+       if (!(currentcard.src.match ("match_images/blank.bmp")))
        {
            return;
        }
     }
-    alert("ROW RAH RAY! You Finished!\nYour click count was: "+clickcount);
-    
+    alert("Congratuations! You Finished!\nYour click count was: "+clickcount);
+
 }
 
-function matchChecker (card1, card2) 
+function matchChecker (card1, card2)
 /*flips the cards back if they are not a match, takes them away if they are */
 {
     if (card1.src === card2.src)
     {
-       
+
         card1.src = "match_images/blank.bmp";
         card2.src = "match_images/blank.bmp";
     }
-    else 
+    else
     {
-        
+
         card1.src = "match_images/backside.png";
         card2.src = "match_images/backside.png";
     }
     setTimeout(function(){
             isgameover();
         }, 50);
-     
+
 }
 
 
@@ -320,12 +320,12 @@ function matchChecker (card1, card2)
 function show(i)  /*main function run every time a card is clicked*/
 {
     clickcount++;
-    
+
     var currentcard = document.getElementById(card[i]);
     var level;
-   
+
     var levelpicker = document.getElementById("demo").innerHTML ;
-    
+
     if (levelpicker === "Level One")
     {
         level = levelOne;
@@ -338,16 +338,16 @@ function show(i)  /*main function run every time a card is clicked*/
     {
         level = levelThree;
     }
-     
+
     if (currentcard.src.match ("match_images/backside.png"))
     {
-        
+
         currentcard.src = level[i].src;
-        twoFlippedChecker();      
+        twoFlippedChecker();
     }
-    
+
     else
         return;
-    
-     
+
+
 }
